@@ -48,5 +48,19 @@ app.get("/test", (req, res, next) => {
     res.json(["Test1", "Test2", "Test3"])
 })
 
+// function test() {
+//     const request = new Request(
+//         "query",
+//         (err, rowCount) => {
+//             if (err) {
+//                 console.error(err.message);
+//             } else {
+//                 console.log("${rowCount} rows returned");
+//             }
+//         }
+//     )
+
+//     Connection.execSql(request);
+// }
 
 
