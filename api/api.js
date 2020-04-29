@@ -21,25 +21,6 @@ app.use(function(req, res, next) {
 
 const server = http.createServer(app)
 
-// var config = {
-//     host: '317.database.windows.net',
-//     user: 'dcribbs',
-//     password: 'Audi1997',
-//     database: '317FinalProject',
-//     port: 1433,
-//     ssl: true,
-// }
-
-// pool.getConnection(
-//     function(err, conn) {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log("Connection Sucess");
-//         }
-//     }
-// )
-
 const config = {
     authentication: {
         options: {
@@ -63,41 +44,11 @@ connection.on("connect", err => {
         console.error(err.message);
     } else {
         console.log("Connection Successs");
-        //queryTest()
     }
 })
 
-
-function queryTest() {
-    items = [];
-
-    const request = new Request(
-        "SELECT * FROM Recipes",
-        (err, rowCount) => {
-            if (err) {
-                console.log(err)
-            } else {
-                // console.log(`${rowCount} row(s) returned`);
-            }
-        }
-    );
-    
-    request.on('row', columns => {
-        columns.forEach(column => {
-            console.log("%s\t%s", column.metadata.colName, column.value);
-        });
-    });
-    connection.execSql(request);
-    
-}   
-
-
 server.listen(port, () => {
     console.log("Server Started");
-
-
-
-    
 })
 
 
@@ -144,14 +95,6 @@ function execute(query, lastCol, callback) {
     
     connection.execSql(request);
 }
-
-// app.get("/test", (req, res, next) => {
-//     query = "SELECT * FROM Recipes";
-
-//     executeRecipeTable(query, function(items) {
-//         res.json(items);
-//     });
-// })
 
 app.get("/getRecipeNames/:item", (req, res, next) => {
     var item = req.params.item;

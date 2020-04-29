@@ -34,7 +34,7 @@
                 <div class="login-btn" ng-click="login()">
                     Create Account
                 </div>
-                <div class="guest-btn">
+                <div class="guest-btn" ng-click="guest()">
                     Login As Guest
                 </div>
             
@@ -78,7 +78,7 @@
                         <div class="title">
                             {{ item.RecipeName }}
                         </div>
-                        <div class='add-form'>
+                        <div class='add-form' ng-if="!isGuest">
                             <input type='number' class="form-control" min=0 max=10 ng-model="review.score" placeholder="Enter Review Score 0 - 10">
                             <div class="add-btn" ng-click="addReview(item.RecipeId)">
                                 <i class="fas fa-plus"></i>

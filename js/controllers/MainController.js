@@ -61,6 +61,11 @@ app.controller('MainController', function($scope, $http) {
 
         })
     }
+    
+    $scope.guest = function() {
+        $scope.isLoggedIn = true;
+        $scope.isGuest = true;
+    }
 
 
     $scope.userReviews = [];
