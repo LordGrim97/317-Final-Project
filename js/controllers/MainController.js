@@ -25,21 +25,38 @@ app.controller('MainController', function($scope, $http) {
         username: ""
     }
     $scope.login = function() {
-        console.log($scope.loginInfo);
+        $scope.user.userId = null;
+        $scope.user.username = null;
+        //console.log($scope.loginInfo);
         $http({
             method: "GET",
             url: baseUrl + "/login/" + $scope.loginInfo.username + "/" + $scope.loginInfo.password
         }).then(function(response) {
-            //console.log(response);
-            if (response.length != 0) {
+            console.log(response.data);
+            if (response.data.length != 0) {
                 $scope.isGuest = false;
                 $scope.isLoggedIn = true;
                 
                 $scope.user.userId = response.data[0].UserId;
                 $scope.user.username = response.data[0].Username;
             } else {
-
+                $scope.createAccount();
             }
+        }, function(error) {
+
+        })
+    }
+
+    $scope.createAccount = function() {
+        console.log($scope.loginInfo);
+        $http({
+            method: "GET",
+            url: baseUrl + "/createAccount/" + $scope.loginInfo.username + "/" + $scope.loginInfo.password
+        }).then(function(response) {
+            //$scope.isGuest = false;
+            //$scope.isLoggedIn = true;
+            
+            $scope.login();
         }, function(error) {
 
         })

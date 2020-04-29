@@ -101,13 +101,14 @@ server.listen(port, () => {
 })
 
 
-function executeInsert(query) {
+function executeInsert(query, callback) {
     const request = new Request(
         query, 
         (err, rowCount) => {
             if (err) {
                 console.log(err);
             } else {
+                callback('completed');
                 console.log("complete");
             }
         }
@@ -232,7 +233,7 @@ app.get("/getReviews/:id", (req, res, next) => {
         ON A.UserId = B.UserId
     WHERE B.RecipeId = ` + id + "";
 
-    console.log(query);
+    //console.log(query);
     lastCol = "Username";
     execute(query, lastCol, function(items) {
         res.json(items);
@@ -252,6 +253,23 @@ app.get("/addReview/:score/:user/:recipe", (req, res, next) => {
     ) VALUES (` + recipe + ", " + score + ", " + user + ")";
 
 
-    executeInsert(query);
+    executeInsert(query, function(response) {
+        res.json(response);
+    });
+})
+
+app.get("/createAccount/:username/:password", (req, res, next) => {
+    var username = req.params.username;
+    var password = req.params.password;
+
+    var query = `
+    INSERT INTO Users (
+        Username,
+        Pass
+    ) VALUES ('` + username + "', '" + password + "')";
+    console.log(query);
+    executeInsert(query, function(response) {
+        res.json(response);
+    });
 })
 
