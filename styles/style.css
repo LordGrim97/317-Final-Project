@@ -1,0 +1,321 @@
+:root {
+    --light-color: #eaeaea;
+    --dark-color: #252a34;
+    --blue-color: #08d9d6;
+    --red-color: #ff2e63;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--light-color);
+    user-select: none;
+}
+
+.home-view {
+    padding: 0;
+    margin: 0;
+    background-color: var(--light-color);
+}
+
+.topbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 75px;
+    background-color: var(--dark-color);
+    display: flex;
+    padding: 0px 0px;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
+}
+
+.topbar-title {
+    margin-left: 15px;
+    margin-top: 14px;
+    font-size: 30px;
+    color: var(--blue-color);
+}
+
+.topbar-form {
+    margin-top: 17px;
+    margin-left: 20px;
+    background-color: #3B4353;
+    width: 40%;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.topbar-form > .form-control {
+    background-color: transparent;
+    border: 0;
+    color: var(--light-color);
+}
+
+.topbar-form > .form-control:focus, .topbar-form > .form-control:active {
+    background-color: transparent;
+    border: 0;
+    color: var(--light-color);
+    text-decoration: none;
+    outline: none;
+    border-radius: 20px;
+}
+
+.topbar-form > ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--light-color);
+    opacity: 1; /* Firefox */
+}
+
+.search-btn {
+    margin-left: 15px;
+    margin-top: 17px;
+    background-color: var(--red-color);
+    color: var(--light-color);
+    padding: 4px 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    
+}
+
+.profile-button {
+    position: fixed;
+    right: 30px;
+    top: 20px;
+    cursor: pointer;
+}
+
+.fa-user {
+    font-size: 30px;
+    color: var(--blue-color);
+}
+
+.view {
+    width: 100%;
+    height: 100vh;
+    margin-top: 75px;
+    display: flex;
+}
+
+.content {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 275px;
+    grid-gap: 50px;
+    transition: all 0.5s;
+    padding: 20px
+}
+
+.content.active {
+    width: 75%;
+    transition: all 0.5s;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 20px
+}
+
+.content > .item {
+    max-height: 300px;
+    width: auto;
+    margin-right: 20px;
+    background-color: var(--light-color);
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    padding: 0px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.content > .item > .image > img {
+    width: 100%;
+    max-height: 200px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.content.active > .item > .image > img {
+    width: 100%;
+    max-height: 200px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.content > .item > .details {
+    padding: 10px;
+}
+
+.content > .item > .details > .title {
+    font-size: 22px;
+    font-weight: 200;
+}
+
+.content > .item:hover {
+    transition: all 0.5s;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12), 0 3px 5px -1px rgba(0, 0, 0, .2);
+}
+
+.sidebar {
+    margin-right: -25%;
+    width: 25%;
+    height: 100%;
+    transition: all 0.5s;
+    background-color: var(--light-color);
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12), 0 3px 5px -1px rgba(0, 0, 0, .2);
+}
+
+.sidebar.active {
+    margin-right: 0;
+    transition: all 0.5s;
+    background-color: var(--light-color);
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12), 0 3px 5px -1px rgba(0, 0, 0, .2);
+}
+
+.sidebar > .recipe-details {
+    text-align: center;
+}
+
+.sidebar > .recipe-details > .image > img{
+    width: 100%;
+    max-height: 200px
+}
+
+.sidebar > .recipe-details > .title {
+    font-size: 30px;
+    font-weight: 200;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.options {
+    display: flex;
+}
+
+.option {
+    padding: 10px;
+    width: 50%;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.option.active {
+    border-bottom: 1px solid var(--red-color);
+    transition: all 0.5s;
+}
+
+.recipe {
+    padding: 20px;
+    text-align: start;
+    height: calc(100vh - 450px);
+    overflow-y: scroll;
+}
+
+.recipe-details > .add-form {
+    display: flex;
+    width: 100%;
+    margin: 15px auto;
+}
+
+.add-form > .form-control {
+    width: 80%;
+    margin: 5px 10px;
+}
+
+.recipe-details > .add-form > .add-btn {
+    width: 10%;
+    background-color: var(--red-color);
+    padding: 10px;
+    border-radius: 50px;
+    transition: all 0.5s;
+    cursor: pointer;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+}
+
+.add-btn:hover {
+    transition: all 0.5s;
+    box-shadow: 0 8px 10px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+}
+
+.add-btn > .fa-plus {
+    font-size: 25px;
+    color: var(--light-color);
+}
+
+.recipe > .header {
+    font-size: 17px;
+    margin: 10px 0px;
+}
+
+.recipe > .items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 5px;
+}
+
+.recipe > .items > .item {
+    text-align: center;
+    padding: 5px;
+    background-color: #3B4353;
+    color: var(--light-color);
+}
+
+.recipe > .steps {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 5px;
+}
+
+.recipe > .steps > .step {
+    text-align: start;
+    padding: 5px;
+    background-color: #3B4353;
+    color: var(--light-color);
+}
+
+
+.profile-details {
+    text-align: center;
+    width: 100%;
+}
+
+.profile-details > .title {
+    font-size: 25px;
+}
+
+.profile-details > .header {
+    font-size: 20px;
+    text-align: start;
+    margin: 5px 10px;
+}
+
+.profile-details > .reviews {
+    text-align: start;
+    padding: 10px;
+    overflow-y: scroll;
+    height: calc(100vh - 150px);
+}
+
+.recipe-details > .reviews {
+    text-align: start;
+    padding: 10px;
+    overflow-y: scroll;
+    height: calc(100vh - 400px);
+}
+
+.reviews > .review {
+    padding: 10px;
+    background-color: #3B4353;
+    margin: 5px 0px;
+    color: var(--light-color);
+}
+
+.reviews > .reviewScore {
+    display: flex;
+}

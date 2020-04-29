@@ -7,12 +7,144 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='stylesheet' href="styles/style.css">
-
+    <link rel='stylesheet' href="styles/login-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a5f268e3b4.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     </head>
 
     <body ng-app="Project" ng-controller="MainController">
-        <h1>{{ test }}</h1>
+        <div class="login-view" ng-if="!isLoggedIn">
+            <div class="login-card">
+                <div class="title">
+                    Find That Recipe
+                </div>
+                <input type="text" class='form-control' id="username" ng-model="loginInfo.username" placeholder="Enter Username">
+                <input type="password" class='form-control' id="username" ng-model="loginInfo.password" placeholder="Enter Password">
+                <div class="login-btn" ng-click="login()">
+                    Login
+                </div>
+                <div class="login-btn" >
+                    Create Account
+                </div>
+                <div class="guest-btn">
+                    Login As Guest
+                </div>
+            
+            </div>
+            <div class="background"></div>
+        </div>
+        <div class="home-view" ng-if="isLoggedIn">
+            <div class="topbar">
+                <div class="topbar-title">
+                    {{ title }}
+                </div>
+                <div class="topbar-form">
+                    <input type="text" class="form-control" id="search" ng-model="search.text" placeholder="Search For Recipes">
+                </div>
+                <div class="search-btn" ng-click="searchRecipes()">
+                    Search
+                </div>
+
+                <div class="profile-button" ng-if="!isGuest" ng-click="profileClicked()">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <div class='view'>
+                <div class="content" ng-class="{'active' : sidebarActive == true}">
+                    <div class="item" ng-repeat="item in recipes" ng-click="getRecipeDetails(item.RecipeId)">
+                        <div class="image">
+                            <img src="{{ item.RecipeImage }}">
+                        </div>
+                        <div class="details">
+                            <div class="title">
+                                {{ item.RecipeName }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar" ng-class="{'active' : sidebarActive == true}">
+                    <div class="recipe-details" ng-repeat="item in recipeDetails" ng-if="isRecipeDetails">
+                        <div class="image">
+                            <img src="{{ item.RecipeImage }}">
+                        </div>
+                        <div class="title">
+                            {{ item.RecipeName }}
+                        </div>
+                        <div class='add-form'>
+                            <input type='number' class="form-control" min=0 max=10 ng-model="review.score" placeholder="Enter Review Score 0 - 10">
+                            <div class="add-btn" ng-click="addReview(item.RecipeId)">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+
+                        <div class="options">
+                            <div class="option" ng-class="{'active' : optionSelected == 0}" ng-click="optionSelected = 0">
+                                Recipe
+                            </div>
+                            <div class="option" ng-class="{'active' : optionSelected == 1}" ng-click="optionSelected = 1; getRecipeReviews(item.RecipeId)">
+                                Reviews
+                            </div>
+                        </div>
+                        <div class="recipe" ng-if="optionSelected == 0">
+                            <div class="header">
+                                Ingredients
+                            </div>
+                            <div class="items">
+                                <div class="item" ng-repeat="ingredient in splitIngredients(item.Ingredients)">
+                                    {{ ingredient }}
+                                </div>
+                            </div>
+                            <div class='header'>
+                                Directions
+                            </div>
+                            <div class="steps">
+                                <div class='step' ng-repeat="step in splitDirections(item.Directions)">
+                                    {{ step }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class='reviews' ng-if="optionSelected == 1">
+                            <div class="review" ng-repeat="item in recipeReviews">
+                                <!-- {{ item.RecipeName }} - {{ item.ReviewScore }} -->
+                                <div class="reviewName">
+                                    {{ item.Username }}
+                                </div>
+                                <div class="reviewScore">
+                                    <i class="fas fa-star" ng-repeat="n in [] | range:item.ReviewScore"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-details" ng-if="isProfileDetails">
+                        <div class="title">
+                            {{ user.username }}
+                        </div>
+                        <div class="header">
+                            Reviews By User
+                        </div>
+                        <div class="reviews">
+                            <div class="review" ng-repeat="item in userReviews">
+                                <!-- {{ item.RecipeName }} - {{ item.ReviewScore }} -->
+                                <div class="reviewName">
+                                    {{ item.RecipeName }}
+                                </div>
+                                <div class="reviewScore">
+                                    <i class="fas fa-star" ng-repeat="n in [] | range:item.ReviewScore"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 
 

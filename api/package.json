@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "mysql": "git://github.com/mysqljs/mysql#e3e123e9af7c0829a6c1417d911572a75b4a5f95",
+    "mysql2": "^2.1.0",
     "tedious": "^8.3.0"
   }
 }
